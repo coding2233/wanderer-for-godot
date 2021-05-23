@@ -1,3 +1,6 @@
 [submodule "godot-headers"]
 	path = godot-headers
 	url = https://github.com/godotengine/godot-headers.git
+[submodule "wanderer/bin/wanderer-sdk"]
+	path = wanderer/bin/wanderer-sdk
+	url = https://github.com/coding2233/wanderer-sdk.git
