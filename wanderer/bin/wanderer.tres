@@ -1,0 +1,8 @@
+[gd_resource type="GDNativeLibrary" format=2]
+
+[resource]
+reloadable = false
+entry/Windows.64 = "res://bin/wanderer-godot/windows/x64/wander.dll"
+entry/Windows.32 = "res://bin/wanderer-godot/windows/x64/wander.dll"
+dependency/Windows.64 = [ "res://bin/wanderer-sdk/windows/x64/wanderer-sdk.dll" ]
+dependency/Windows.32 = [ "res://bin/wanderer-sdk/windows/x86/wanderer-sdk.dll" ]
