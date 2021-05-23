@@ -8,4 +8,9 @@ include_directories(godot-headers)
 
 set(SRC src/wanderer.c)
 
+message("${CMAKE_BUILD_RPATH}")
+
+message("${CMAKE_CURRENT_BINARY_DIR}")
+
+
 add_library(${PROJECT_NAME} SHARED ${SRC})

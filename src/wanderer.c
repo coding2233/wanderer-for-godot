@@ -1,6 +1,4 @@
 #include <string.h>
-
-
 #include "gdnative_api_struct.gen.h"
 
 typedef struct user_data_struct {
