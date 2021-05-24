@@ -1,0 +1,270 @@
+name: CI-FOR-MAIN
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build-sdk-linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -S ${SRC} -B ${SRC}/${BUILD}
+        cmake --build ${SRC}/${BUILD} -j 10
+        ls -alh ${BUILD}
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-linux
+    #     path: build/src/libwanderer-sdk.so
+
+  build-sdk-windows-x64:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        md build
+        cmake -S ./ -B build
+        dir build
+        cmake --build build/ --config Release --target wanderer
+        dir build
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-windows-x64
+    #     path: build/src/Release/wanderer-sdk.dll
+  
+  build-sdk-windows-x86:
+    runs-on: windows-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        md build
+        cmake -A Win32 -S ./ -B build
+        dir build
+        cmake --build build/ --config Release --target wanderer
+        dir build
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-windows-x86
+    #     path: build/src/Release/wanderer-sdk.dll
+  
+  build-sdk-android-armv7:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        wget https://dl.google.com/android/repository/android-ndk-r21e-linux-x86_64.zip
+        sudo apt-get install -y unzip
+        unzip android-ndk-r21e-linux-x86_64.zip
+        export ANDROID_NDK=$(pwd)/android-ndk-r21e
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake -DANDROID_ABI="armeabi-v7a" -DANDROID_NDK=$ANDROID_NDK -DANDROID_PLATFORM=android-22 -S ${SRC} -B ${SRC}/${BUILD}
+        cmake --build ${SRC}/${BUILD} -j 10
+        ls -alh ${BUILD}
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-android-armv7
+    #     path: build/src/libwanderer-sdk.so
+
+  build-sdk-android-armv8:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        wget https://dl.google.com/android/repository/android-ndk-r21e-linux-x86_64.zip
+        sudo apt-get install -y unzip
+        unzip android-ndk-r21e-linux-x86_64.zip
+        export ANDROID_NDK=$(pwd)/android-ndk-r21e
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake -DANDROID_ABI="arm64-v8a" -DANDROID_NDK=$ANDROID_NDK -DANDROID_PLATFORM=android-22 -S ${SRC} -B ${SRC}/${BUILD} 
+        cmake --build ${SRC}/${BUILD} -j 10
+        ls -alh ${BUILD}
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-android-armv8
+    #     path: build/src/libwanderer-sdk.so
+  
+  build-sdk-android-x86_64:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        wget https://dl.google.com/android/repository/android-ndk-r21e-linux-x86_64.zip
+        sudo apt-get install -y unzip
+        unzip android-ndk-r21e-linux-x86_64.zip
+        export ANDROID_NDK=$(pwd)/android-ndk-r21e
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK/build/cmake/android.toolchain.cmake -DANDROID_ABI="x86_64" -DANDROID_NDK=$ANDROID_NDK -DANDROID_PLATFORM=android-22 -S ${SRC} -B ${SRC}/${BUILD}
+        cmake --build ${SRC}/${BUILD} -j 10
+        ls -alh ${BUILD}
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-android-x86_64
+    #     path: build/src/libwanderer-sdk.so
+  
+  build-sdk-osx:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -S ${SRC} -B ${SRC}/${BUILD}
+        cmake --build ${SRC}/${BUILD} -j 10
+        ls -alh ${BUILD}
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-osx
+    #     path: build/src/libwanderer-sdk.dylib
+
+  build-sdk-ios-arm:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${SRC}/cmake/ios.toolchain.cmake -DPLATFORM=OS -S ${SRC} -B ${SRC}/${BUILD}
+        cmake --build ${SRC}/${BUILD} --config Release -j 10
+        ls -alh ${BUILD}
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-ios-arm
+    #     path: build/src/libwanderer-sdk.dylib
+
+  build-sdk-ios-arm64:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.3.4
+      with:
+        submodules: true
+    - name: build
+      run: |
+        export SRC=./
+        export BUILD=build
+        cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${SRC}/cmake/ios.toolchain.cmake -DPLATFORM=OS64 -S ${SRC} -B ${SRC}/${BUILD}
+        cmake --build ${SRC}/${BUILD} --config Release -j 10
+        ls -alh ${BUILD}/src
+    # - name: Expose as artifact
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: wanderer-sdk-ios-arm64
+    #     path: build/src/libwanderer-sdk.dylib
+  
+  # push-sdk:
+  #   runs-on: ubuntu-latest
+  #   needs: [build-sdk-linux,build-sdk-windows-x64,build-sdk-windows-x86,build-sdk-android-armv7,build-sdk-android-armv8,build-sdk-android-x86_64,build-sdk-osx,build-sdk-ios-arm,build-sdk-ios-arm64]
+  #   steps:
+  #   - name: Download an artifact - include
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-include
+  #       path: ./
+  #   - name: Download an artifact - linux
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-linux
+  #       path: linux/
+  #   - name: Download an artifact -  windows-x64
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-windows-x64
+  #       path: windows/x64/
+  #   - name: Download an artifact -  windows-x86
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-windows-x86
+  #       path: windows/x86/
+  #   - name: Download an artifact - android-armv7
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-android-armv7
+  #       path: android/armv7/
+  #   - name: Download an artifact - android-armv8
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-android-armv8
+  #       path: android/armv8/
+  #   - name: Download an artifact - android-x68_64
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-android-x86_64
+  #       path: android/x86_64/
+  #   - name: Download an artifact - osx
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-osx
+  #       path: osx/
+  #   - name: Download an artifact - ios-arm
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-ios-arm
+  #       path: ios/arm/
+  #   - name: Download an artifact - ios-arm64
+  #     uses: actions/download-artifact@v2
+  #     with:
+  #       name: wanderer-sdk-ios-arm64
+  #       path: ios/arm64/
+  #   - name: Check-files
+  #     run: |
+  #       ls -alh
+  #       tar -zxvf sdk-include.tar.gz
+  #       rm sdk-include.tar.gz
+  #       mv build/include ./
+  #       rm -rf build
+  #       ls -alh
+  #       ls -alh include/
+  #   - uses: seanmiddleditch/gha-publish-to-git@master
+  #     with:
+  #       repository: coding2233/wanderer-sdk
+  #       branch: main
+  #       github_token: '${{ secrets.WANDERER_SDK_TOKEN  }}'
+  #       source_folder: .
+  #       target_folder: .
