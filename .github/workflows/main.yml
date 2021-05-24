@@ -191,7 +191,7 @@ jobs:
         export BUILD=build
         cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=${SRC}/cmake/ios.toolchain.cmake -DPLATFORM=OS64 -S ${SRC} -B ${SRC}/${BUILD}
         cmake --build ${SRC}/${BUILD} --config Release -j 10
-        ls -alh ${BUILD}/src
+        ls -alh ${BUILD}
     - name: Expose as artifact
       uses: actions/upload-artifact@v2
       with:
