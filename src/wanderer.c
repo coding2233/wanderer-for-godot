@@ -113,4 +113,8 @@ godot_variant wanderer_connect(godot_object *p_instance, void *p_method_data,
                                void *p_user_data, int p_num_args, godot_variant **p_args)
 {
     // Connect("127.0.0.1",12233,)
+
+    godot_variant result;
+
+    return result;
 }
