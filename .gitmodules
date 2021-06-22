@@ -1,0 +1,6 @@
+[submodule "godot-cpp"]
+	path = godot-cpp
+	url = https://github.com/godotengine/godot-cpp.git
+[submodule "wanderer-sdk"]
+	path = wanderer-sdk
+	url = https://github.com/coding2233/wanderer-sdk.git
