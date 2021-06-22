@@ -24,6 +24,7 @@ godot_headers_path = "godot-cpp/godot-headers/"
 cpp_bindings_path = "godot-cpp/"
 cpp_library = "libgodot-cpp"
 
+
 # only support 64 at this time..
 bits = 64
 
@@ -61,6 +62,7 @@ if env['platform'] == "osx":
         env.Append(CCFLAGS=['-g', '-O2'])
     else:
         env.Append(CCFLAGS=['-g', '-O3'])
+    # wanderer_library += "osx/"
 
 elif env['platform'] in ('x11', 'linux'):
     env['target_path'] += 'x11/'
@@ -71,6 +73,7 @@ elif env['platform'] in ('x11', 'linux'):
         env.Append(CCFLAGS=['-g3', '-Og'])
     else:
         env.Append(CCFLAGS=['-g', '-O3'])
+    # wanderer_library += "linux/"
 
 elif env['platform'] == "windows":
     env['target_path'] += 'win64/'
@@ -98,11 +101,15 @@ else:
 
 cpp_library += '.' + str(bits)
 
+add_library = [cpp_library]
+if env['platform'] == "windows":
+    add_library = [cpp_library, 'wanderer-sdk/windows/x64/wanderer-sdk']
+
 # make sure our binding library is properly includes
 env.Append(CPPPATH=['.', godot_headers_path, cpp_bindings_path + 'include/', cpp_bindings_path +
-           'include/core/', cpp_bindings_path + 'include/gen/', 'demo/bin/wanderer-sdk/include/'])
-env.Append(LIBPATH=[cpp_bindings_path + 'bin/', 'demo/bin/win64/'])
-env.Append(LIBS=[cpp_library, 'wanderer-sdk'])
+           'include/core/', cpp_bindings_path + 'include/gen/', 'wanderer-sdk/include/'])
+env.Append(LIBPATH=[cpp_bindings_path + 'bin/'])
+env.Append(LIBS=add_library)
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=['src/'])
