@@ -1,5 +1,6 @@
 #!python
 import os
+import shutil
 
 opts = Variables([], ARGUMENTS)
 
@@ -63,6 +64,8 @@ if env['platform'] == "osx":
     else:
         env.Append(CCFLAGS=['-g', '-O3'])
     # wanderer_library += "osx/"
+    shutil.copyfile('wanderer-sdk/osx/libwanderer-sdk.dylib',
+                    env['target_path']+'libwanderer-sdk.dylib')
 
 elif env['platform'] in ('x11', 'linux'):
     env['target_path'] += 'x11/'
@@ -74,6 +77,8 @@ elif env['platform'] in ('x11', 'linux'):
     else:
         env.Append(CCFLAGS=['-g', '-O3'])
     # wanderer_library += "linux/"
+    shutil.copyfile('wanderer-sdk/linux/libwanderer-sdk.so',
+                    env['target_path']+'libwanderer-sdk.so')
 
 elif env['platform'] == "windows":
     env['target_path'] += 'win64/'
@@ -93,6 +98,9 @@ elif env['platform'] == "windows":
     else:
         env.Append(CPPDEFINES=['NDEBUG'])
         env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
+    # Copy wanderer-sdk file
+    shutil.copyfile('wanderer-sdk/windows/x64/wanderer-sdk.dll',
+                    env['target_path']+'wanderer-sdk.dll')
 
 if env['target'] in ('debug', 'd'):
     cpp_library += '.debug'

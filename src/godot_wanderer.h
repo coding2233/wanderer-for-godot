@@ -2,13 +2,13 @@
 #define __GODOT_WANDERER_H__
 
 #include <Godot.hpp>
-#include <Reference.hpp>
+#include <Node.hpp>
 
 using namespace godot;
 
-class GodotWanderer : public Reference
+class GodotWanderer : public Node
 {
-    GODOT_CLASS(GodotWanderer, Reference);
+    GODOT_CLASS(GodotWanderer, Node);
 
 private:
     /* data */
