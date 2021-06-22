@@ -17,7 +17,7 @@ opts.Add(BoolVariable('use_llvm', "Use the LLVM / Clang compiler", 'no'))
 opts.Add(PathVariable('target_path',
          'The path where the lib is installed.', 'demo/bin/'))
 opts.Add(PathVariable('target_name', 'The library name.',
-         'libgdexample', PathVariable.PathAccept))
+         'wanderer', PathVariable.PathAccept))
 
 # Local dependency paths, adapt them to your setup
 godot_headers_path = "godot-cpp/godot-headers/"

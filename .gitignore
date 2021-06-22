@@ -12,9 +12,9 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+# *.so
+# *.dylib
+# *.dll
 
 # Fortran module files
 *.mod
@@ -23,8 +23,8 @@
 # Compiled Static libraries
 *.lai
 *.la
-*.a
-*.lib
+# *.a
+# *.lib
 
 # Executables
 *.exe
@@ -34,6 +34,10 @@
 # Visual studio
 vc140.idb
 vc140.pdb
+
+# bin
+demo/bin/win64/*.exp
+demo/bin/win64/*.lib
 
 # Scons
 .sconsign.dblite
