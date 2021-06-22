@@ -26,7 +26,7 @@ jobs:
 
       - name: Build godot-cpp
         run: |
-          scons target=release generate_bindings=yes -j $(nproc)
+          scons target=release generate_bindings=yes platform=linux -j $(nproc)
 
       # - name: Upload artifact
       #   uses: actions/upload-artifact@v2.2.4
@@ -63,7 +63,7 @@ jobs:
 
       - name: Build godot-cpp
         run: |
-          scons target=release generate_bindings=yes -j $env:NUMBER_OF_PROCESSORS
+          scons target=release generate_bindings=yes platform=windows -j $env:NUMBER_OF_PROCESSORS
 
       # - name: Upload artifact
       #   uses: actions/upload-artifact@v2.2.4
@@ -94,7 +94,7 @@ jobs:
 
       - name: Build godot-cpp
         run: |
-          scons target=release generate_bindings=yes -j $(sysctl -n hw.logicalcpu)
+          scons target=release generate_bindings=yes platform=osx -j $(sysctl -n hw.logicalcpu)
 
       # - name: Upload artifact
       #   uses: actions/upload-artifact@v2.2.4

@@ -30,3 +30,10 @@
 *.exe
 *.out
 *.app
+
+# Visual studio
+vc140.idb
+vc140.pdb
+
+# Scons
+.sconsign.dblite
