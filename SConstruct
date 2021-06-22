@@ -99,6 +99,7 @@ elif env['platform'] == "windows":
         env.Append(CPPDEFINES=['NDEBUG'])
         env.Append(CCFLAGS=['-O2', '-EHsc', '-MD'])
     # Copy wanderer-sdk file
+    # if not os.path.exists(env['target_path']+'wanderer-sdk.dll'):
     shutil.copyfile('wanderer-sdk/windows/x64/wanderer-sdk.dll',
                     env['target_path']+'wanderer-sdk.dll')
 

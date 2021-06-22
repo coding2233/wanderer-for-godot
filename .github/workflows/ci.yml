@@ -29,6 +29,7 @@ jobs:
           cd godot-cpp
           scons target=release generate_bindings=yes platform=linux -j $(nproc)
           cd ..
+          ls -alh
           scons target=release platform=linux
 
       # - name: Upload artifact
@@ -69,6 +70,7 @@ jobs:
           cd godot-cpp
           scons target=release generate_bindings=yes platform=windows -j $env:NUMBER_OF_PROCESSORS
           cd ..
+          dir .
           scons target=release platform=windows
 
       # - name: Upload artifact
@@ -103,6 +105,7 @@ jobs:
           cd godot-cpp
           scons target=release generate_bindings=yes platform=osx -j $(sysctl -n hw.logicalcpu)
           cd ..
+          ls -alh
           scons target=release platform=osx
 
       # - name: Upload artifact
